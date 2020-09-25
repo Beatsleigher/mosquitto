@@ -2,8 +2,13 @@ include_directories(${mosquitto_SOURCE_DIR}/lib ${mosquitto_SOURCE_DIR}/lib/cpp
 			${STDBOOL_H_PATH} ${STDINT_H_PATH})
 link_directories(${mosquitto_BINARY_DIR}/lib)
 
+if (WITH_STATIC_LIBRARIES)
+add_library(mosquittopp STATIC
+	mosquittopp.cpp mosquittopp.h)
+else()
 add_library(mosquittopp SHARED
 	mosquittopp.cpp mosquittopp.h)
+endif()
 
 target_link_libraries(mosquittopp libmosquitto)
 set_target_properties(mosquittopp PROPERTIES
