@@ -58,7 +58,7 @@ option(WITH_TLS_PSK
 option(WITH_EC
 	"Include Elliptic Curve support (requires WITH_TLS)?" ON)
 if (${WITH_TLS} STREQUAL ON)
-	find_package(OpenSSL REQUIRED)
+	#find_package(OpenSSL REQUIRED)
 	add_definitions("-DWITH_TLS")
 
 	if (${WITH_TLS_PSK} STREQUAL ON)
@@ -84,8 +84,12 @@ option(WITH_SRV "Include SRV lookup support?" ON)
 # ========================================
 
 add_subdirectory(lib)
-add_subdirectory(client)
-add_subdirectory(src)
+if (mosquitto_BUILD_CLIENT)
+	add_subdirectory(client)
+endif()
+if (mosquitto_BUILD_SRC)
+	add_subdirectory(src)
+endif()
 add_subdirectory(man)
 
 # ========================================
